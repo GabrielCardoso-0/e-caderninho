@@ -1,8 +1,9 @@
 package com.example.ecaderninho.usuario;
 
-import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
 
 @Service
 public class UsuarioService {
@@ -68,4 +69,10 @@ public class UsuarioService {
         response.setEstabelecimento(u.getEstabelecimento());
         return response;
     }
+
+    public UsuarioResponse buscarPorEmail(String email) {
+    Usuario usuario = repository.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+    return toResponse(usuario);
+}
 }
