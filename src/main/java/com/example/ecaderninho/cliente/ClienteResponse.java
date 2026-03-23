@@ -7,6 +7,7 @@ public class ClienteResponse {
     private String nomeUsuario;
     private String nome;
     private String cpf;
+    private String contato;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -22,4 +23,7 @@ public class ClienteResponse {
 
     public String getCpf() { return cpf; }
     public void setCpf(String cpf) { this.cpf = cpf; }
+
+    public String getContato() { return contato; }
+    public void setContato(String contato) { this.contato = contato; }
 }

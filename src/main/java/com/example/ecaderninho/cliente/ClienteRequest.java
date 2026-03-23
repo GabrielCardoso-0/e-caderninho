@@ -5,6 +5,7 @@ public class ClienteRequest {
     private Long idUsuario;
     private String nome;
     private String cpf;
+    private String contato;
 
     public Long getIdUsuario() { return idUsuario; }
     public void setIdUsuario(Long idUsuario) { this.idUsuario = idUsuario; }
@@ -14,4 +15,7 @@ public class ClienteRequest {
 
     public String getCpf() { return cpf; }
     public void setCpf(String cpf) { this.cpf = cpf; }
+    
+    public String getContato() { return contato; }
+    public void setContato(String contato) { this.contato = contato; }
 }

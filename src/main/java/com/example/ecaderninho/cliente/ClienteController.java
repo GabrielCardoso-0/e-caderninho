@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -51,4 +52,16 @@ public class ClienteController {
     public void deletar(@PathVariable Long id) {
         service.deletar(id);
     }
+
+    @GetMapping("/contato/{contato}")
+    public ClienteResponse buscarPorContato(@PathVariable String contato) {
+    return service.buscarPorContato(contato);
+}
+
+    @GetMapping("/usuario/{idUsuario}/contato")
+    public List<ClienteResponse> buscarPorContatoEUsuario(
+        @PathVariable Long idUsuario,
+        @RequestParam String q) {
+    return service.buscarPorContatoEUsuario(idUsuario, q);
+}
 }

@@ -55,6 +55,23 @@ public class ClienteService {
         clienteRepository.deleteById(id);
     }
 
+// Buscar por contato
+public ClienteResponse buscarPorContato(String contato) {
+    return toResponse(
+        clienteRepository.findByContato(contato)
+            .orElseThrow(() -> new RuntimeException("Cliente não encontrado"))
+    );
+}
+
+// Buscar por contato dentro de um usuário
+public List<ClienteResponse> buscarPorContatoEUsuario(Long idUsuario, String contato) {
+    return clienteRepository
+        .findByUsuarioIdAndContatoContainingIgnoreCase(idUsuario, contato)
+        .stream()
+        .map(this::toResponse)
+        .collect(Collectors.toList());
+}
+
     // ---------- helpers privados ----------
 
     private Cliente encontrarPorId(Long id) {
@@ -68,20 +85,22 @@ public class ClienteService {
     }
 
     private Cliente toEntity(ClienteRequest request) {
-        Cliente c = new Cliente();
-        c.setNome(request.getNome());
-        c.setCpf(request.getCpf());
-        c.setUsuario(buscarUsuario(request.getIdUsuario()));
-        return c;
-    }
+    Cliente c = new Cliente();
+    c.setNome(request.getNome());
+    c.setCpf(request.getCpf());
+    c.setContato(request.getContato()); // ← adicione
+    c.setUsuario(buscarUsuario(request.getIdUsuario()));
+    return c;
+}
 
     private ClienteResponse toResponse(Cliente c) {
-        ClienteResponse response = new ClienteResponse();
-        response.setId(c.getId());
-        response.setNome(c.getNome());
-        response.setCpf(c.getCpf());
-        response.setIdUsuario(c.getUsuario().getId());
-        response.setNomeUsuario(c.getUsuario().getNome());
-        return response;
-    }
+    ClienteResponse response = new ClienteResponse();
+    response.setId(c.getId());
+    response.setNome(c.getNome());
+    response.setCpf(c.getCpf());
+    response.setContato(c.getContato()); // ← adicione
+    response.setIdUsuario(c.getUsuario().getId());
+    response.setNomeUsuario(c.getUsuario().getNome());
+    return response;
+}
 }
