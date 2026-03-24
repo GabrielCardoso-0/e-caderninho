@@ -52,8 +52,8 @@ public class UsuarioController {
     }
 
     @GetMapping("/keepalive")
-    public String keepAlive() {
-        service.count(); // 🔥 consulta super leve
-        return "o serviço esta operante🔥";
+public String keepAlive() {
+    service.contarUsuarios();
+    return "o serviço está acordado 🔥";
 }
 }

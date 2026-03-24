@@ -76,7 +76,7 @@ public class UsuarioService {
     return toResponse(usuario);
     }
 
-    public long count() {
-    return repository.count();
-}
+    public long contarUsuarios() {
+        return repository.count();
+    }
 }
