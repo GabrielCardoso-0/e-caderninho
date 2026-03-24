@@ -10,6 +10,7 @@ public class VendaRequest {
     private BigDecimal valor;
     private String observacao;
     private Boolean pago;
+    private BigDecimal saldoDevedor;
 
     public Long getIdUsuario() { return idUsuario; }
     public void setIdUsuario(Long idUsuario) { this.idUsuario = idUsuario; }
@@ -28,4 +29,7 @@ public class VendaRequest {
 
     public Boolean getPago() { return pago; }
     public void setPago(Boolean pago) { this.pago = pago; }
+
+    public BigDecimal getSaldoDevedor() { return saldoDevedor; }
+    public void setSaldoDevedor(BigDecimal saldoDevedor) { this.saldoDevedor = saldoDevedor; }
 }

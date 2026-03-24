@@ -1,5 +1,6 @@
 package com.example.ecaderninho.venda;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -105,15 +106,23 @@ public class VendaService {
     }
 
     private Venda toEntity(VendaRequest request) {
-        Venda v = new Venda();
-        v.setUsuario(buscarUsuario(request.getIdUsuario()));
-        v.setCliente(request.getIdCliente() != null ? buscarCliente(request.getIdCliente()) : null);
-        v.setFormaPagamento(buscarFormaPagamento(request.getIdFormaPagamento()));
-        v.setValor(request.getValor());
-        v.setObservacao(request.getObservacao());
-        v.setPago(request.getPago());
-        return v;
+    Venda v = new Venda();
+    v.setUsuario(buscarUsuario(request.getIdUsuario()));
+    v.setCliente(request.getIdCliente() != null ? buscarCliente(request.getIdCliente()) : null);
+    v.setFormaPagamento(buscarFormaPagamento(request.getIdFormaPagamento()));
+    v.setValor(request.getValor());
+    v.setObservacao(request.getObservacao());
+    v.setPago(request.getPago());
+
+    // Se já foi pago, saldo zerado. Se a prazo, saldo = valor total
+    if (Boolean.TRUE.equals(request.getPago())) {
+        v.setSaldoDevedor(BigDecimal.ZERO);
+    } else {
+        v.setSaldoDevedor(request.getValor());
     }
+
+    return v;
+}
 
     private VendaResponse toResponse(Venda v) {
         VendaResponse response = new VendaResponse();
@@ -123,6 +132,7 @@ public class VendaService {
         response.setIdFormaPagamento(v.getFormaPagamento().getId());
         response.setDescricaoFormaPagamento(v.getFormaPagamento().getDescricao());
         response.setValor(v.getValor());
+        response.setSaldoDevedor(v.getSaldoDevedor());
         response.setObservacao(v.getObservacao());
         response.setData(v.getData());
         response.setPago(v.getPago());
@@ -135,4 +145,30 @@ public class VendaService {
 
         return response;
     }
+
+    public VendaResponse registrarPagamento(Long idVenda, BigDecimal valorPago) {
+    Venda venda = encontrarPorId(idVenda);
+
+    if (venda.getSaldoDevedor().compareTo(BigDecimal.ZERO) == 0) {
+        throw new RuntimeException("Esta venda já está quitada");
+    }
+
+    if (valorPago.compareTo(BigDecimal.ZERO) <= 0) {
+        throw new RuntimeException("Valor do pagamento deve ser maior que zero");
+    }
+
+    if (valorPago.compareTo(venda.getSaldoDevedor()) > 0) {
+        throw new RuntimeException("Valor pago não pode ser maior que o saldo devedor");
+    }
+
+    BigDecimal novoSaldo = venda.getSaldoDevedor().subtract(valorPago);
+    venda.setSaldoDevedor(novoSaldo);
+
+    // Quita automaticamente se saldo zerou
+    if (novoSaldo.compareTo(BigDecimal.ZERO) == 0) {
+        venda.setPago(true);
+    }
+
+    return toResponse(vendaRepository.save(venda));
+}
 }

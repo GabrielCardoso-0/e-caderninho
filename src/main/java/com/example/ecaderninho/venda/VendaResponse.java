@@ -16,6 +16,7 @@ public class VendaResponse {
     private String observacao;
     private LocalDateTime data;
     private Boolean pago;
+    private BigDecimal saldoDevedor;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -49,4 +50,7 @@ public class VendaResponse {
 
     public Boolean getPago() { return pago; }
     public void setPago(Boolean pago) { this.pago = pago; }
+
+    public BigDecimal getSaldoDevedor() { return saldoDevedor; }
+    public void setSaldoDevedor(BigDecimal saldoDevedor) { this.saldoDevedor = saldoDevedor; }
 }
