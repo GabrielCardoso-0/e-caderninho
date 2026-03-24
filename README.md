@@ -6,7 +6,7 @@
 [![Java](https://img.shields.io/badge/Java-21-orange?style=flat-square&logo=openjdk)](https://openjdk.org/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-6db33f?style=flat-square&logo=spring)](https://spring.io/projects/spring-boot)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-4479a1?style=flat-square&logo=mysql&logoColor=white)](https://www.mysql.com/)
-[![Licença](https://img.shields.io/badge/licença-MIT-22c55e?style=flat-square)](LICENSE)
+
 
 ---
 
@@ -448,6 +448,7 @@ POST /clientes
 | `GET` | `/vendas/cliente/{idCliente}` | Listar por cliente |
 | `GET` | `/vendas/usuario/{id}/pago/{pago}` | Filtrar por status |
 | `PUT` | `/vendas/{id}` | Atualizar |
+| `PATCH` | `/vendas/{id}/pagamento?valor=29,90` | Atualiza saldo devedor |
 | `DELETE` | `/vendas/{id}` | Deletar |
 
 **Exemplo — registrar venda:**
@@ -656,7 +657,7 @@ Contribuições são bem-vindas! Para contribuir:
 
 ## 📄 Licença
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Este projeto está sob a licença PROPRIETARIA.
 
 ---
 

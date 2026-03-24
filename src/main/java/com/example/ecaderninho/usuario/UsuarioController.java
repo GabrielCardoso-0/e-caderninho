@@ -50,4 +50,10 @@ public class UsuarioController {
     public UsuarioResponse buscarPorEmail(@PathVariable String email) {
         return service.buscarPorEmail(email);
     }
+
+    @GetMapping("/keepalive")
+    public String keepAlive() {
+        service.count(); // 🔥 consulta super leve
+        return "o serviço esta operante🔥";
+}
 }

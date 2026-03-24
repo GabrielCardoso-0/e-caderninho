@@ -74,5 +74,9 @@ public class UsuarioService {
     Usuario usuario = repository.findByEmail(email)
             .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
     return toResponse(usuario);
+    }
+
+    public long count() {
+    return repository.count();
 }
 }
