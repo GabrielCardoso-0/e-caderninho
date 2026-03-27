@@ -10,7 +10,7 @@ public class CorsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*") // não esquecer de mudar em prod .allowedOrigins("https://e-caderninho-front.vercel.app")
+                .allowedOrigins("https://e-caderninho.com.br", "https://www.e-caderninho.com.br") 
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                 .allowedHeaders("*");
     }
